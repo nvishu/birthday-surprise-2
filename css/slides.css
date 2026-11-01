@@ -1,0 +1,106 @@
+/* ===== V3: one-page-at-a-time slides, intro, polish ===== */
+body.slides{overflow:hidden;height:100vh;height:100dvh}
+body.slides::before{content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
+  background:radial-gradient(40% 40% at 20% 30%,rgba(255,150,190,.45),transparent 70%),
+  radial-gradient(35% 35% at 80% 20%,rgba(200,160,255,.40),transparent 70%),
+  radial-gradient(45% 45% at 60% 85%,rgba(255,200,160,.40),transparent 70%);
+  animation:aurora 18s ease-in-out infinite alternate}
+@keyframes aurora{to{transform:translate3d(6%,4%,0) rotate(8deg) scale(1.12)}}
+body.slides main{position:fixed;inset:0;overflow:hidden;perspective:1400px;--d:1}
+body.slides main>.section{position:absolute;inset:0;display:none;max-width:none;margin:0;min-height:0;
+  overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding:100px max(20px,calc((100vw - 1100px)/2)) 140px;backface-visibility:hidden}
+body.slides main>.section.show{display:block}
+body.slides main>.hero.show{display:flex;justify-content:flex-start}
+body.slides .divider,body.slides #progress-bar,body.slides .scroll-down{display:none!important}
+body.slides footer{padding:40px 0 0}
+@keyframes pgIn{from{opacity:0;transform:translateX(calc(var(--d)*40%)) rotateY(calc(var(--d)*-28deg)) scale(.8);filter:blur(12px)}to{opacity:1;transform:none;filter:none}}
+@keyframes pgOut{to{opacity:0;transform:translateX(calc(var(--d)*-40%)) rotateY(calc(var(--d)*28deg)) scale(.8);filter:blur(12px)}}
+body.slides main>.section.in{animation:pgIn .95s cubic-bezier(.22,1,.36,1) both}
+body.slides main>.section.out{animation:pgOut .7s cubic-bezier(.55,0,.7,.2) both;pointer-events:none}
+#sweep{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:0;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,140,180,.55) 50%,transparent 70%)}
+#sweep.go{animation:sweep .9s ease-in-out}
+@keyframes sweep{0%{opacity:1;transform:translateX(calc(var(--sd,1)*-110%))}100%{opacity:1;transform:translateX(calc(var(--sd,1)*110%))}}
+
+/* Next / Back bar */
+#slidebar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:110;
+  display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:60px;
+  background:rgba(255,255,255,.78);backdrop-filter:blur(12px);box-shadow:var(--shadow);transition:opacity .6s}
+#slidebar button{border:none;cursor:pointer;color:#fff;font-weight:600;font-size:.95rem;border-radius:50px;
+  background:linear-gradient(135deg,var(--rose),var(--rose-dark));box-shadow:0 6px 18px rgba(232,70,124,.45)}
+.sb-back{width:42px;height:42px;font-size:1.3rem}
+.sb-back:disabled{opacity:.3;cursor:default;box-shadow:none}
+.sb-next{padding:12px 22px;display:flex;gap:8px;align-items:center;animation:nudge 2.2s ease-in-out infinite}
+.sb-next b{display:inline-block;animation:arrow 1.1s ease-in-out infinite}
+@keyframes nudge{50%{box-shadow:0 6px 28px rgba(232,70,124,.85);transform:scale(1.05)}}
+@keyframes arrow{50%{transform:translateX(5px)}}
+.sb-dots{display:flex;gap:7px}
+.sb-dots i{width:9px;height:9px;border-radius:50%;background:rgba(168,40,90,.25);transition:.4s;cursor:pointer}
+.sb-dots i.on{width:26px;border-radius:9px;background:var(--rose)}
+@media(max-width:520px){.sb-next small{display:none}.sb-dots{gap:5px}.sb-dots i{width:7px;height:7px}.sb-dots i.on{width:18px}#slidebar{gap:8px}}
+body.intro #nav,body.intro main,body.intro #slidebar{opacity:0;pointer-events:none}
+body.slides #nav,body.slides main{transition:opacity .8s}
+
+/* Cards: a little more life */
+.tl-card,.reason-inner,.polaroid,.quiz-box{transition:transform .4s,box-shadow .4s}
+.polaroid:hover{transform:rotate(0) scale(1.06)!important;box-shadow:0 20px 45px rgba(168,40,90,.35)}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:glint 3.5s infinite}
+@keyframes glint{60%,100%{left:140%}}
+
+/* ===== INTRO ===== */
+#intro{position:fixed;inset:0;z-index:1450;overflow:hidden;display:none;
+  background:radial-gradient(circle at 50% 45%,#6a0f2c 0%,#2a0614 55%,#12030a 100%)}
+body.intro #intro{display:block}
+#intro.fade{opacity:0;transition:opacity 1.1s ease;pointer-events:none}
+#intro .i-heart{position:absolute;left:50%;top:44%;width:min(56vw,300px);margin:calc(min(56vw,300px)/-2) 0 0 calc(min(56vw,300px)/-2);
+  opacity:0;filter:drop-shadow(0 0 30px #ff1744) drop-shadow(0 0 70px #c8102e)}
+#intro .i-heart svg{width:100%;display:block}
+#intro .i-heart.beat{animation:ibeat 1s ease-in-out infinite}
+@keyframes ibeat{0%,100%{transform:scale(1)}15%{transform:scale(1.14)}30%{transform:scale(1)}45%{transform:scale(1.09)}}
+#intro .archer{position:absolute;left:9%;bottom:14%;width:120px;height:200px;
+  transform:scale(var(--sc,1)) rotate(var(--rot,0deg));transform-origin:50% 50%;opacity:0}
+#intro .archer>svg:first-child{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#intro .arrow{position:absolute;left:40px;top:92px;width:130px;height:16px;overflow:visible}
+#intro .ring{position:absolute;left:50%;top:44%;width:80px;height:80px;margin:-40px;border-radius:50%;
+  border:4px solid #ff8fb0;opacity:0}
+#intro .flash{position:absolute;inset:0;background:#fff;opacity:0}
+#intro .i-text{position:absolute;left:0;right:0;top:44%;transform:translateY(-50%) scale(0);text-align:center;
+  font-family:'Great Vibes',cursive;line-height:1.05;opacity:0;padding:0 10px}
+#intro .i-text span{display:block;font-size:clamp(3.2rem,15vw,8rem);
+  background:linear-gradient(180deg,#ff4d6d,#ff1744 45%,#ff7aa8);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 14px #ff1744) drop-shadow(0 0 40px #c8102e)}
+#intro .i-text span+span{font-size:clamp(4.4rem,22vw,12rem)}
+#intro .p{position:absolute;left:50%;top:44%;pointer-events:none;color:#ff4d6d}
+#intro .skip{position:absolute;right:16px;top:calc(14px + env(safe-area-inset-top));z-index:5;background:rgba(255,255,255,.12);
+  color:#ffd6e3;border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:8px 16px;font-size:.85rem;cursor:pointer}
+@media(prefers-reduced-motion:reduce){body.slides main>.section.in,body.slides main>.section.out{animation-duration:.01s}}
+
+/* Fix: keep hero items at natural size (no squeezing), page scrolls instead */
+body.slides main>.hero.show>*{flex-shrink:0}
+body.slides main>.section.show>.section-content,body.slides main>.section.show>.gate{flex-shrink:0}
+
+/* ===== Reasons: colourful back + word-by-word text animation ===== */
+.reason-inner{transition:transform .9s cubic-bezier(.3,.1,.2,1),box-shadow .4s}
+.reason:hover .reason-inner{box-shadow:0 18px 40px rgba(232,70,124,.35)}
+.reason-back{position:relative;overflow:hidden;color:#fff;
+  background:linear-gradient(135deg,#ff6a95,#a855f7);background-size:200% 200%;animation:bgflow 6s ease infinite}
+.reasons-grid .reason:nth-child(4n+2) .reason-back{background-image:linear-gradient(135deg,#ff9a5a,#e8467c)}
+.reasons-grid .reason:nth-child(4n+3) .reason-back{background-image:linear-gradient(135deg,#7c4dff,#ff4d8d)}
+.reasons-grid .reason:nth-child(4n) .reason-back{background-image:linear-gradient(135deg,#ff5e7e,#ffb347)}
+.reason-back::before{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg)}
+.reason.flipped .reason-back::before{animation:glint 3.2s 1s infinite}
+.reason-back::after{content:"\2764  \2726  \273F";position:absolute;bottom:8px;left:0;right:0;font-size:.8rem;
+  letter-spacing:10px;color:rgba(255,255,255,.55);animation:bgflow 3s ease-in-out infinite alternate}
+.reason-back p{position:relative;z-index:1;font-weight:500;font-size:1.02rem;line-height:1.55;
+  color:#fff;text-shadow:0 2px 12px rgba(120,0,60,.45)}
+.reason-back .w{display:inline-block;opacity:0;margin:0 .13em}
+.reason.flipped .reason-back .w{
+  animation:wordPop .7s cubic-bezier(.3,1.6,.5,1) both,wave 2.6s ease-in-out infinite;
+  animation-delay:calc(.5s + var(--w)*.13s),calc(1.6s + var(--w)*.15s)}
+@keyframes wordPop{from{opacity:0;transform:translateY(22px) scale(.3) rotate(-10deg);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes wave{50%{transform:translateY(-4px)}}
+@keyframes bgflow{50%{background-position:100% 50%}}

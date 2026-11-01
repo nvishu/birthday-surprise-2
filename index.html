@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Happy Birthday, Kuku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/slides.css" />
+  <link rel="stylesheet" href="css/extra.css" />
+  <link rel="stylesheet" href="css/glow.css" />
+</head>
+<body class="locked">
+
+  <canvas id="confetti"></canvas>
+  <canvas id="fw"></canvas>
+  <div id="hearts-bg" aria-hidden="true"></div>
+
+  <!-- ================= LOCK SCREEN ================= -->
+  <div id="lock">
+    <div class="lock-card">
+      <div class="lock-heart">&#10084;</div>
+      <h1 class="script">Hey you...</h1>
+      <p>Someone made something special for you.<br>But only one person knows the password.</p>
+      <p class="hint">Hint: what do I always call you?</p>
+      <form id="lock-form">
+        <input id="lock-input" type="password" placeholder="Password" autocomplete="off" />
+        <button type="submit" class="btn">Open my surprise</button>
+      </form>
+      <p id="lock-error" class="error"></p>
+    </div>
+  </div>
+
+  <!-- ================= NAV & MUSIC ================= -->
+  <nav id="nav">
+    <a href="#home">Home</a><a href="#story">Story</a><a href="#gallery">Gallery</a><a href="#reasons">Reasons</a>
+    <a href="#habits">Habits</a><a href="#meter">Love Meter</a><a href="#sky">Stars</a><a href="#games">Games</a>
+    <a href="#song">Song</a><a href="#promise">Promises</a><a href="#future">Future</a><a href="#gift">Gift</a>
+    <a href="#letter">Letter</a><a href="#finale">Finale</a>
+  </nav>
+  <button id="music-btn" title="Music on / off">&#9835;</button>
+
+  <main>
+    <!-- ================= HOME ================= -->
+    <section id="home" class="section hero" data-song="1">
+      <div class="hero-photo"><img id="hero-img" alt="Kuku" /></div>
+      <p class="eyebrow">3 November</p>
+      <h1 class="script title">Happy Birthday, <span class="accent">Kuku</span></h1>
+      <p id="hero-sub" class="sub"></p>
+
+      <div id="countdown" class="countdown">
+        <div><span id="cd-days">0</span><small>Days</small></div>
+        <div><span id="cd-hours">0</span><small>Hours</small></div>
+        <div><span id="cd-mins">0</span><small>Minutes</small></div>
+        <div><span id="cd-secs">0</span><small>Seconds</small></div>
+      </div>
+
+      <div class="cake">
+        <div class="candles">
+          <div class="candle"><span class="flame"></span></div>
+          <div class="candle"><span class="flame"></span></div>
+          <div class="candle"><span class="flame"></span></div>
+          <div class="candle"><span class="flame"></span></div>
+          <div class="candle"><span class="flame"></span></div>
+        </div>
+        <div class="tier tier-top"></div>
+        <div class="tier tier-bottom"></div>
+        <div class="plate"></div>
+      </div>
+      <p id="cake-msg" class="hint">Make a wish, then tap each candle to blow it out</p>
+
+      <div class="together">
+        <span id="days-together">0</span>
+        <p>days since you walked into my project, and into my life</p>
+      </div>
+      <a href="#story" class="scroll-down">Scroll down &#8595;</a>
+    </section>
+
+    <!-- ================= OUR STORY ================= -->
+    <section id="story" class="section" data-song="2">
+      <h2 class="script section-title">Our Story</h2>
+      <p class="section-sub">From colleagues to something much more</p>
+      <div id="timeline" class="timeline"></div>
+    </section>
+
+    <!-- ================= GALLERY ================= -->
+    <section id="gallery" class="section" data-song="3">
+      <h2 class="script section-title">Our Moments</h2>
+      <p class="section-sub">Tap any photo to see it bigger</p>
+      <div id="gallery-grid" class="gallery-grid"></div>
+    </section>
+
+    <!-- =================  ================= -->
+    <section id="reasons" class="section" data-song="4">
+      <h2 class="script section-title">Reasons I Like You</h2>
+      <p class="section-sub">Tap each card to open it</p>
+      <div id="reasons-grid" class="reasons-grid"></div>
+    </section>
+
+    <!-- ================= HABITS ================= -->
+    <section id="habits" class="section" data-song="4">
+      <h2 class="script section-title">Things I Love About You</h2>
+      <p class="section-sub">Swipe each card, or tap a button</p>
+      <div id="habit-stack" class="habit-stack"></div>
+      <div class="habit-btns"><button class="btn" data-h="-1">&#128584; Too cute</button><button class="btn" data-h="1">&#128525; Obsessed</button></div>
+      <p id="habit-msg" class="game-msg"></p>
+    </section>
+
+    <!-- ================= LOVE METER ================= -->
+    <section id="meter" class="section" data-song="4">
+      <h2 class="script section-title">Love Meter</h2>
+      <p class="section-sub">Press and hold the heart to measure my love</p>
+      <div class="lm-wrap"><div class="lm-bar"><i id="lm-fill"></i></div><div id="lm-pct" class="lm-pct">0%</div></div>
+      <button id="lm-heart" class="lm-heart" aria-label="Hold me">&#10084;</button>
+      <p id="lm-msg" class="game-msg">Hold on tight...</p>
+    </section>
+
+    <!-- ================= STAR SKY ================= -->
+    <section id="sky" class="section night" data-song="3">
+      <h2 class="script section-title">Wish Upon a Star</h2>
+      <p class="section-sub" id="sky-sub">Tap the glowing stars, one by one</p>
+      <div class="sky-box" id="sky-box"><i class="shoot"></i><i class="shoot s2"></i><i class="shoot s3"></i><div class="moon"></div>
+        <svg id="sky-svg" viewBox="0 0 100 100" preserveAspectRatio="none"></svg></div>
+      <div id="sky-msg" class="sky-msg">&nbsp;</div>
+    </section>
+
+    <!-- ================= GAMES ================= -->
+    <section id="games" class="section" data-song="5">
+      <h2 class="script section-title">Birthday Games</h2>
+      <p class="section-sub">Six little games, made only for you</p>
+
+      <div class="game-tabs">
+        <button class="tab active" data-game="memory">Memory</button>
+        <button class="tab" data-game="quiz">Quiz</button>
+        <button class="tab" data-game="hearts">Catch Hearts</button>
+        <button class="tab" data-game="puzzle">Puzzle</button>
+        <button class="tab" data-game="wheel">Spin the Wheel</button>
+        <button class="tab" data-game="scratch">Scratch Card</button>
+      </div>
+
+      <!-- Memory -->
+      <div class="game-panel active" id="game-memory">
+        <h3>Find all the matching pairs</h3>
+        <p class="game-info">Moves: <span id="mem-moves">0</span></p>
+        <div id="memory-board" class="memory-board"></div>
+        <p id="mem-msg" class="game-msg"></p>
+        <button class="btn" id="mem-restart">Restart</button>
+      </div>
+
+      <!-- Quiz -->
+      <div class="game-panel" id="game-quiz">
+        <div id="quiz-box" class="quiz-box"></div>
+      </div>
+
+      <!-- Catch hearts -->
+      <div class="game-panel" id="game-hearts">
+        <h3>Catch as many hearts as you can in 30 seconds</h3>
+        <p class="game-info">Score: <span id="ch-score">0</span> &nbsp;|&nbsp; Time: <span id="ch-time">30</span>s</p>
+        <div id="hearts-area" class="hearts-area"></div>
+        <p id="ch-msg" class="game-msg"></p>
+        <button class="btn" id="ch-start">Start</button>
+      </div>
+
+      <!-- Puzzle -->
+      <div class="game-panel" id="game-puzzle">
+        <h3>Tap two pieces to swap them</h3>
+        <p class="game-info">Moves: <span id="pz-moves">0</span></p>
+        <div class="puzzle-wrap">
+          <div id="puzzle-board" class="puzzle-board"></div>
+          <div class="puzzle-preview"><p>Hint</p><img id="puzzle-preview" alt="" /></div>
+        </div>
+        <p id="pz-msg" class="game-msg"></p>
+        <button class="btn" id="pz-restart">Shuffle again</button>
+      </div>
+
+      <!-- Wheel -->
+      <div class="game-panel" id="game-wheel">
+        <h3>Spin the Wheel of Destiny</h3>
+        <div class="wheel-wrap">
+          <div class="wheel-pointer"></div>
+          <canvas id="wheel" width="360" height="360"></canvas>
+        </div>
+        <button class="btn" id="wheel-spin">Spin</button>
+        <p id="wheel-msg" class="game-msg"></p>
+      </div>
+
+      <!-- Scratch -->
+      <div class="game-panel" id="game-scratch">
+        <h3>Scratch to reveal a secret</h3>
+        <div class="scratch-wrap">
+          <div id="scratch-message" class="scratch-message"></div>
+          <canvas id="scratch" width="340" height="220"></canvas>
+        </div>
+        <button class="btn" id="scratch-reset">Cover it again</button>
+      </div>
+    </section>
+
+    <!-- ================= SONG ================= -->
+    <section id="song" class="section" data-song="6">
+      <h2 class="script section-title">Our Song</h2>
+      <p class="section-sub" id="song-title"></p>
+      <div class="vinyl" id="vinyl" title="Tap to pause / play music"><div class="disc"><div class="v-label">&#10084;</div></div><div class="arm"></div></div>
+      <p id="song-line" class="song-line"></p>
+      <button class="btn" id="voice-btn">&#127908; Play my voice note</button>
+      <p id="voice-msg" class="hint"></p>
+    </section>
+
+    <!-- ================= PROMISES ================= -->
+    <section id="promise" class="section" data-song="6">
+      <h2 class="script section-title">My Promises</h2>
+      <p class="section-sub">Written only for you</p>
+      <ul class="promises" id="promises"></ul>
+    </section>
+
+    <!-- ================= FUTURE ================= -->
+    <section id="future" class="section" data-song="2">
+      <h2 class="script section-title">Our Next Chapter</h2>
+      <p class="section-sub">Not written yet, but I can already see it</p>
+      <div class="path" id="path"></div>
+    </section>
+
+    <!-- ================= GIFT ================= -->
+    <section id="gift" class="section" data-song="5">
+      <h2 class="script section-title">Your Birthday Gift</h2>
+      <p class="section-sub" id="gift-sub">Tap the box to open it</p>
+      <div class="giftbox" id="giftbox"><div class="g-light"></div><div class="g-lid"></div><div class="g-body"></div></div>
+      <div class="coupons" id="coupons"></div>
+    </section>
+
+    <!-- ================= LETTER ================= -->
+    <section id="letter" class="section" data-song="6">
+      <h2 class="script section-title">A Letter For You</h2>
+      <p class="section-sub">Tap the letter to skip the typing</p>
+      <div id="envelope" class="envelope"><div class="e-back"></div><div class="e-flap"></div><div class="e-front"></div><div class="e-heart">&#10084;</div><p class="e-hint">Tap to open</p></div>
+      <div class="letter-card" id="letter-card">
+        <img id="letter-img" class="letter-photo" alt="" />
+        <p id="letter-text" class="letter-text"></p>
+        <p id="letter-sign" class="letter-sign script"></p>
+      </div>
+      <button class="btn" id="final-btn">One last surprise</button>
+    </section>
+    <!-- ================= FINALE ================= -->
+    <section id="finale" class="section night" data-song="1">
+      <div class="fin">
+        <p class="eyebrow" id="fin-eyebrow"></p>
+        <h2 class="script fin-title">Kuku &#10084; Nishant</h2>
+        <p class="fin-text">Every day with you is my favourite day. Tap the sky.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>Made with all my love by <span id="footer-name"></span></footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <button class="lb-close" aria-label="Close">&times;</button>
+    <button class="lb-prev" aria-label="Previous">&#10094;</button>
+    <img id="lb-img" alt="" />
+    <button class="lb-next" aria-label="Next">&#10095;</button>
+    <p id="lb-caption"></p>
+  </div>
+
+  <!-- Final popup -->
+  <div id="final-pop">
+    <div class="big-heart">&#10084;</div>
+    <h2 class="script">I like you, Kuku</h2>
+    <p>Happy birthday to the most beautiful and loved person.</p>
+    <p>I have no idea why it's developing more and more inside me.</p>
+    <p class="small">(tap anywhere to close)</p>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script src="js/slides.js"></script>
+  <script src="js/extra.js"></script>
+  <script src="js/glow.js"></script>
+</body>
+</html>
